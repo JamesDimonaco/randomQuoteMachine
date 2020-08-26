@@ -1,0 +1,7 @@
+{
+  "name": "Quote Generator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
