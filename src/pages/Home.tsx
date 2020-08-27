@@ -8,48 +8,47 @@ import {
   IonButton,
   IonToast,
   IonLoading,
+  useIonViewDidEnter,
 } from "@ionic/react";
-import { egg, logoTwitter } from "ionicons/icons";
+import { logoTwitter } from "ionicons/icons";
 import React, { useState } from "react";
 import "./Home.css";
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import axios from "axios";
+
+let quoteList: any[];
 
 const Home: React.FC = () => {
   const [showToast, setShowToast] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const quoteText: any = document.getElementById("quote");
-  const authorText: any = document.getElementById("author");
+  const [quote, setQuote] = useState({
+    text: "Loading...",
+    author: "",
+  });
 
-  async function getQuote() {
+  const getQuotes = async () => {
     setShowLoading(true);
-
-    const apiUrl = "https://type.fit/api/quotes";
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      const oneQuote = data[Math.floor(Math.random() * data.length)];
-      //
-      if (authorText === "") {
-        authorText.innerText = "Unknown";
-      } else {
-        authorText.innerText = oneQuote.author;
-      }
-      quoteText.innerText = oneQuote.text;
-      setShowLoading(false);
-    } catch (error) {
-      console.log("error no quote", error);
+    const response = await axios.get("https://type.fit/api/quotes");
+    setShowLoading(false);
+    if (response.data) {
+      quoteList = response.data;
+    } else {
+      console.log("error no quote");
       setShowToast(true);
     }
-  }
+  };
+
+  const changeQuote = () =>
+    setQuote(quoteList[Math.floor(Math.random() * quoteList.length)]);
+
+  useIonViewDidEnter(async () => {
+    await getQuotes();
+    changeQuote();
+  });
 
   function tweetQuote() {
-    const quote = quoteText.innerText;
-    const author = authorText.innerText;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.text} - ${quote.author}`;
     window.open(twitterUrl, "_blank");
-  }
-
-  function handleClick() {
-    getQuote();
   }
 
   return (
@@ -68,29 +67,29 @@ const Home: React.FC = () => {
           isOpen={showLoading}
           onDidDismiss={() => setShowLoading(false)}
           message={"Finding Quote"}
-          duration={5000}
+          duration={2000}
         />
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}
           message="There seems to be an error, Please try again."
-          duration={500}
+          duration={5000}
         />
 
         <div className="main-box" id="quote-box">
           <div className="quote-text">
-            <IonIcon icon={egg}></IonIcon>
-            <span id="quote"></span>
-            <IonIcon icon={egg}></IonIcon>
+            <FaQuoteLeft className="quoteSimbol" />
+            <span id="quote">{quote.text}</span>
+            <FaQuoteRight className="quoteSimbol" />
           </div>
           <div className="quote-author">
-            <span id="author"></span>
+            <span id="author">{quote.author}</span>
           </div>
           <div className="button-box">
             <IonButton onClick={tweetQuote} id="twitter" title="Tweet this!!">
-              <IonIcon icon={logoTwitter} />
+              <IonIcon id="logo" icon={logoTwitter} />
             </IonButton>
-            <IonButton onClick={handleClick} color="light" id="new-quote">
+            <IonButton color="light" onClick={changeQuote} id="new-quote">
               NEW QUOTE
             </IonButton>
           </div>
