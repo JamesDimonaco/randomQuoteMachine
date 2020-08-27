@@ -17,6 +17,7 @@
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
     "es.keensoft.fullscreenimage": "^0.2.10",
+    "firebase": "^7.19.0",
     "ionicons": "^5.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
