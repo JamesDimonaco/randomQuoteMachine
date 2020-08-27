@@ -91,7 +91,7 @@ const Home: React.FC = () => {
               <IonIcon icon={logoTwitter} />
             </IonButton>
             <IonButton onClick={handleClick} color="light" id="new-quote">
-              NEW QUOTE
+              NEW QUOTE!
             </IonButton>
           </div>
         </div>
