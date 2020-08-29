@@ -33,13 +33,17 @@ const Home: React.FC = () => {
     if (response.data) {
       quoteList = response.data;
     } else {
+      if (quote.author == null) {
+        quote.author = "Unknown";
+      }
       console.log("error no quote");
       setShowToast(true);
     }
   };
 
-  const changeQuote = () =>
+  const changeQuote = () => {
     setQuote(quoteList[Math.floor(Math.random() * quoteList.length)]);
+  };
 
   useIonViewDidEnter(async () => {
     await getQuotes();
@@ -54,7 +58,7 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="light">
           <IonTitle>Random Quote Machine</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -83,13 +87,13 @@ const Home: React.FC = () => {
             <FaQuoteRight className="quoteSimbol" />
           </div>
           <div className="quote-author">
-            <span id="author">{quote.author}</span>
+            <span id="author">{quote.author || "Unknown"}</span>
           </div>
           <div className="button-box">
             <IonButton onClick={tweetQuote} id="twitter" title="Tweet this!!">
-              <IonIcon id="logo" icon={logoTwitter} />
+              <IonIcon slot="icon-only" id="logo" icon={logoTwitter} />
             </IonButton>
-            <IonButton color="light" onClick={changeQuote} id="new-quote">
+            <IonButton onClick={changeQuote} id="new-quote">
               NEW QUOTE
             </IonButton>
           </div>
