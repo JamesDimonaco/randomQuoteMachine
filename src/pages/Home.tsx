@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import "./Home.css";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import axios from "axios";
+import { RandomImage } from "../components/RandomImage";
 
 let quoteList: any[];
 
@@ -79,24 +80,26 @@ const Home: React.FC = () => {
           message="There seems to be an error, Please try again."
           duration={5000}
         />
-
-        <div className="main-box" id="quote-box">
-          <div className="quote-text">
-            <FaQuoteLeft className="quoteSimbol" />
-            <span id="quote">{quote.text}</span>
-            <FaQuoteRight className="quoteSimbol" />
+        <div className="flex">
+          <div className="main-box" id="quote-box">
+            <div className="quote-text">
+              <FaQuoteLeft className="quoteSimbol" />
+              <span id="quote">{quote.text}</span>
+              <FaQuoteRight className="quoteSimbol" />
+            </div>
+            <div className="quote-author">
+              <span id="author">{quote.author || "Unknown"}</span>
+            </div>
+            <div className="button-box">
+              <IonButton onClick={tweetQuote} id="twitter" title="Tweet this!!">
+                <IonIcon slot="icon-only" id="logo" icon={logoTwitter} />
+              </IonButton>
+              <IonButton onClick={changeQuote} id="new-quote">
+                NEW QUOTE
+              </IonButton>
+            </div>
           </div>
-          <div className="quote-author">
-            <span id="author">{quote.author || "Unknown"}</span>
-          </div>
-          <div className="button-box">
-            <IonButton onClick={tweetQuote} id="twitter" title="Tweet this!!">
-              <IonIcon slot="icon-only" id="logo" icon={logoTwitter} />
-            </IonButton>
-            <IonButton onClick={changeQuote} id="new-quote">
-              NEW QUOTE
-            </IonButton>
-          </div>
+          <RandomImage />
         </div>
       </IonContent>
     </IonPage>
