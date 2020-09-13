@@ -37,11 +37,9 @@ ion-content {
 ion-button {
   cursor: pointer;
   --border-radius: 10px;
-  --background: #222428;
 }
 #twitter {
   --color-hover: #38a1f3;
-  --background: #222428;
   --background-activated: #38a1f3;
 }
 

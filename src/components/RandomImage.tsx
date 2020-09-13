@@ -1,42 +1,41 @@
 import React, { useState } from "react";
-import { IonItem, IonImg, useIonViewDidEnter } from "@ionic/react";
+import { IonItem, IonImg, useIonViewWillEnter } from "@ionic/react";
 import axios from "axios";
-
 import "./RandomImage.css";
 
 const ApiKey = "qOgh24S7mYoumKG_Bn7kr042X_lUN5TcSrgBa2oXFCE";
 const ApiUrl = `https://api.unsplash.com/photos/random/?client_id=${ApiKey}&count=20`;
 
-let photoList: any[];
+let src: string;
 
 export const RandomImage: React.FC = () => {
-  const [img, setImg] = useState({
-    src: "",
-    alt_description: "",
-  });
+  let [random, setRandom] = useState(0);
 
   const getPhotos = async () => {
     const response = await axios.get(ApiUrl);
-    photoList = await response.data;
+    src = response.data[random].urls.regular;
     if (!response.data) {
       console.log("error, likely request limit reached");
     }
   };
-
   const changePhoto = () => {
-    setImg(photoList[Math.floor(Math.random() * photoList.length)]);
+    setRandom(random + 1);
+    if (random === 10) {
+      console.log("reached limit");
+      random = 0;
+    }
   };
 
-  useIonViewDidEnter(async () => {
+  useIonViewWillEnter(async () => {
     await getPhotos();
     changePhoto();
   });
 
-  console.log(photoList);
+  console.log(random);
 
   return (
     <IonItem onClick={changePhoto} button={true} className="image-box">
-      <IonImg src={img.src} alt={img.alt_description} />
+      <IonImg src={src} />
     </IonItem>
   );
 };

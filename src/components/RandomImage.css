@@ -7,4 +7,5 @@ ion-item {
   background: rgba(255, 255, 255, 0.65);
   box-shadow: 0 10px 10px 10px #00000080;
   margin-top: 60px;
+  --background: rgba(0, 0, 0, 0);
 }

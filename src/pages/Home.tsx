@@ -59,11 +59,11 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="light">
+        <IonToolbar>
           <IonTitle>Random Quote Machine</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent scroll-y={true} fullscreen>
         <IonHeader collapse="condense">
           <IonTitle size="large">Blank</IonTitle>
         </IonHeader>
