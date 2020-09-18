@@ -9,8 +9,17 @@ import {
   IonToast,
   IonLoading,
   useIonViewDidEnter,
+  IonFab,
+  IonFabButton,
+  IonFabList,
 } from "@ionic/react";
-import { logoTwitter } from "ionicons/icons";
+import {
+  logoTwitter,
+  share,
+  logoGithub,
+  logoLinkedin,
+  cafeSharp,
+} from "ionicons/icons";
 import React, { useState } from "react";
 import "./Home.css";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
@@ -60,7 +69,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Random Quote Machine And Random Image Machine</IonTitle>
+          <IonTitle>Random Machine </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent scroll-y={true} fullscreen>
@@ -98,6 +107,33 @@ const Home: React.FC = () => {
                 NEW QUOTE
               </IonButton>
             </div>
+          </div>
+          <div className="fab">
+            <IonFab horizontal="end" slot="fixed">
+              <IonFabButton>
+                <IonIcon icon={share} />
+              </IonFabButton>
+              <IonFabList side="start">
+                <IonFabButton
+                  href="https://github.com/JamesDimonaco"
+                  target="_blank"
+                >
+                  <IonIcon icon={logoGithub} />
+                </IonFabButton>
+                <IonFabButton
+                  href="https://www.linkedin.com/in/james-dimonaco-436901160/"
+                  target="_blank"
+                >
+                  <IonIcon icon={logoLinkedin} />
+                </IonFabButton>
+                <IonFabButton
+                  href="https://www.buymeacoffee.com/JamesDimonaco"
+                  target="_blank"
+                >
+                  <IonIcon icon={cafeSharp} />
+                </IonFabButton>
+              </IonFabList>
+            </IonFab>
           </div>
           <RandomImage />
         </div>

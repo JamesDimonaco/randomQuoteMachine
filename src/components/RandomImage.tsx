@@ -4,7 +4,7 @@ import axios from "axios";
 import "./RandomImage.css";
 
 const ApiKey = "qOgh24S7mYoumKG_Bn7kr042X_lUN5TcSrgBa2oXFCE";
-const ApiUrl = `https://api.unsplash.com/photos/random/?client_id=${ApiKey}&count=30`;
+const ApiUrl = `https://api.unsplash.com/photos/random/?client_id=${ApiKey}&count=30&orientation=landscape`;
 
 export const RandomImage: React.FC = () => {
   let imgArry: string[] = [];
