@@ -60,7 +60,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Random Quote Machine</IonTitle>
+          <IonTitle>Random Quote Machine And Random Image Machine</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent scroll-y={true} fullscreen>
