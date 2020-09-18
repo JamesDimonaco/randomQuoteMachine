@@ -8,8 +8,7 @@ ion-content {
   font-family: Roboto, Montserrat, sans-serif;
   text-align: center;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 .main-box {
   width: auto;
@@ -17,7 +16,7 @@ ion-content {
   justify-content: center;
   padding: 20px 30px;
   border-radius: 20px;
-  margin-top: 40vh;
+  margin-top: 35vh;
   display: inline-block;
   background: rgba(255, 255, 255, 0.65);
   box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.5);
@@ -38,26 +37,39 @@ ion-content {
 ion-button {
   cursor: pointer;
   --border-radius: 10px;
-  --opacity: 0.75;
 }
 #twitter {
   --color-hover: #38a1f3;
-  --background: #222428;
+  --background-activated: #38a1f3;
 }
-.long-quote {
-  font-size: 1.5rem;
-  color: red;
+
+.quoteSimbol {
+  margin: 0px 10px;
+  font-size: 2.2rem;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 @media (max-width: 1000px) {
   .main-box {
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10vh;
   }
   .quote-author {
     font-size: 1rem;
   }
   #quote {
     font-size: 1.5rem;
+  }
+  .quoteSimbol {
+    font-size: 1.8rem;
+  }
+  #twitter {
+    --color: #38a1f3;
   }
 }
