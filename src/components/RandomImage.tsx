@@ -1,39 +1,51 @@
 import React, { useState } from "react";
-import { IonItem, IonImg } from "@ionic/react";
+import { IonItem, IonImg, IonButton } from "@ionic/react";
 import axios from "axios";
 import "./RandomImage.css";
 
 const ApiKey = "qOgh24S7mYoumKG_Bn7kr042X_lUN5TcSrgBa2oXFCE";
 const ApiUrl = `https://api.unsplash.com/photos/random/?client_id=${ApiKey}&count=30&orientation=landscape`;
-
+let imgArry: string[] = [];
+let num: number = 0;
+let realArry: string[] = [];
 export const RandomImage: React.FC = () => {
-  let imgArry: string[] = [];
+  const [imgHidden, setImgHidden] = useState(true);
+  const [btnHidden, setBtnHidden] = useState(false);
+  let [imgSrc, setImgSrc] = useState("");
+
   let random: number;
   let dataSrc: string;
-  let num: number = 0;
 
   const getPhotos = async () => {
     const response = await axios.get(ApiUrl);
     for (random = 0; random < 30; random++) {
-      dataSrc = response.data[random].urls.regular;
+      dataSrc = response.data[random].urls.small;
       imgArry.push(dataSrc);
     }
   };
 
-  let [imgSrc, setImgSrc] = useState(
-    "https://cdn.discordapp.com/attachments/729993223929593866/729996453979619330/unknown.png"
-  );
-
   const changePhoto = () => {
-    num = num + 1;
-    setImgSrc(imgArry[num]);
+    setImgSrc(realArry[++num]);
   };
 
-  getPhotos();
+  const btnChange = async () => {
+    await getPhotos();
+    setImgSrc(imgArry[num]);
+    realArry = imgArry;
+
+    console.log(imgArry);
+    setBtnHidden(true);
+    setImgHidden(false);
+  };
 
   return (
-    <IonItem onClick={changePhoto} button={true} className="image-box">
-      <IonImg src={imgSrc} />
-    </IonItem>
+    <div className="image-box">
+      <IonButton hidden={btnHidden} onClick={btnChange}>
+        Show image
+      </IonButton>
+      <IonItem hidden={imgHidden} onClick={changePhoto} button={true}>
+        <IonImg src={imgSrc} />
+      </IonItem>
+    </div>
   );
 };
