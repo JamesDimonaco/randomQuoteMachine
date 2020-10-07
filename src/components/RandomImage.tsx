@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IonItem, IonImg, IonButton } from "@ionic/react";
+import { IonItem, IonImg, IonButton, useIonViewWillEnter } from "@ionic/react";
 import axios from "axios";
 import "./RandomImage.css";
 
@@ -7,7 +7,6 @@ const ApiKey = "qOgh24S7mYoumKG_Bn7kr042X_lUN5TcSrgBa2oXFCE";
 const ApiUrl = `https://api.unsplash.com/photos/random/?client_id=${ApiKey}&count=30&orientation=landscape`;
 let imgArry: string[] = [];
 let num: number = 0;
-let realArry: string[] = [];
 export const RandomImage: React.FC = () => {
   const [imgHidden, setImgHidden] = useState(true);
   const [btnHidden, setBtnHidden] = useState(false);
@@ -25,18 +24,25 @@ export const RandomImage: React.FC = () => {
   };
 
   const changePhoto = () => {
-    setImgSrc(realArry[++num]);
+    setImgSrc(imgArry[++num]);
+    console.log(num);
+    if (num >= 29) {
+      num = 0;
+      getPhotos();
+    }
   };
 
-  const btnChange = async () => {
-    await getPhotos();
+  const btnChange = () => {
     setImgSrc(imgArry[num]);
-    realArry = imgArry;
-
     console.log(imgArry);
     setBtnHidden(true);
     setImgHidden(false);
   };
+
+  useIonViewWillEnter(() => {
+    console.log("ionViewWillEnter event fired");
+    getPhotos();
+  });
 
   return (
     <div className="image-box">
